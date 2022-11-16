@@ -1,0 +1,12 @@
+Comandos Linux
+
+*Para executar um comando como administrador, basta colocar "sudo"antes do comandos (importante)*
+
+rm (arquivo) - exclui arquivo
+mkdir (diretorio) - cria diretorio
+cd (pasta) - muda pra pasta
+ls - lista arquivos
+pico || nano (arquivo).(extensao) - cria arquivo
+clear - limpa terminal
+rm -r (diretorio) - exclui diretorio 
+sudo su - todos os comandos como administrador

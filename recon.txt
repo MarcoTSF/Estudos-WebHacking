@@ -1,0 +1,103 @@
+target: https://notes.webhacking.com.br
+
+
+Quais portas existem nesse servidor?
+
+            1- Instalar o network maper (sudo apt install nmap)
+               (sudo apt install ncat) => para conectar na porta  
+            2- (nmap notes.webhacking.com.br -v) "-v = resumo enquanto a aplicação roda"
+               (nmap notes.webhacking.com.br -sV) "-sV = show version, se disponível no header"
+               (nc notes.webhacking.com.br 21 -v -z) "testar porta por porta, exemplo: porta 21"
+
+            PORT    STATE SERVICE
+            22/tcp  open  ssh
+            80/tcp  open  http
+            443/tcp open  https
+
+
+Onde o servidor que hospeda esta aplicação está?
+
+            1- (ping notes.webhacking.com.br) "nem sempre será onde o servidor hospeda"
+            2- ipinfo.io/52.2.30.210 "site com informações do servidor"
+            3- Acessar o ip e ver o resultado
+
+            Caso apareça uma tela com informações: Apache está configurado pra ver um vhost => uma forma de utilizar um servidor para hospedar diversas aplicações
+            se o "Header: Host" == notes.webhacking.com.br -> abre a aplicação que está na pasta X
+            se o "Header: Host" == "webhacking.com.br" -> abre a aplicação que está na pasta Y
+
+            52.2.30.210 - na AWS - "us-east-1 = região" "us-east-1a || us-east-1b = Exemplo de Data Center's da região"
+            Nome interno: ip-172-31-17-141
+            OS: Ubuntu
+            PHP: 8.1.2-1ubuntu2.8
+            Apache 2.0 Handler - Apache/2.4.52
+            Arquivo de configuração do PHP: /etc/php/8.1/apache2/php.ini
+            Usuário do apache: www-data
+            172.31.17.141 "ip privado / Server addr"
+
+            Aplicação está hospedada aqui: /var/www/html
+
+
+Quais tecnologias existem nesse site?
+
+            1- Abrir o "View page source"
+
+            Tailwind CSS "framework de estilização", Jquery "framework para facilitar a construção da aplicação"
+
+            2- Através do page source, acessou a página de registro e criou uma conta
+
+            Nome: Bago Alado Email: 4545mtsf@aloha.com.br Senha: Mtsf@2022
+
+
+Quais pastas, arquivos ou rotas existem no site?
+
+            Manual:
+            1- Instalou o Python (sudo apt-get install python3)
+            2- Instalou um editor de código (sudo apt-get install nano -y)
+            3- Criou o spider.py
+            4- Instalou a seclist (apt -y install seclists)
+            5- Acessou as informações da seclist e colocou o arquivo /Discovery/Web-Content/common.txt no diretório do recon (cp common.txt /home/marco/Documentos/recon)
+
+            Automatizado:
+            1- Instalou o Web Application Fuzzer (sudo apt-get install wfuzz)
+            2- (wfuzz -c -z file,common.txt --hc 404 https://notes.webhacking.com.br/FUZZ)
+
+            notes.webhacking.com.br
+
+            000000025:   403        9 L      28 W       289 Ch      ".htpasswd"  
+            000000024:   403        9 L      28 W       289 Ch      ".htaccess"  
+            000000023:   403        9 L      28 W       289 Ch      ".hta"       
+            000000013:   301        9 L      28 W       339 Ch      ".git/logs/" 
+            000000930:   301        9 L      28 W       336 Ch      "build"      
+            000001038:   301        9 L      28 W       337 Ch      "cgi-bin/"   
+            000001758:   200        0 L      0 W        0 Ch        "favicon.ico"
+            000002085:   302        11 L     22 W       394 Ch      "home"       
+            000002193:   200        136 L    581 W      8073 Ch     "index.php"  
+            000002511:   200        113 L    241 W      5370 Ch     "login"      
+            000002525:   405        154 L    31416 W    881696 Ch   "logout"     
+            000002845:   302        11 L     22 W       394 Ch      "notes"      
+            000003474:   200        114 L    251 W      5415 Ch     "register"   
+            000003569:   200        2 L      3 W        24 Ch       "robots.txt" 
+            000003710:   403        9 L      28 W       289 Ch      "server-status"
+
+
+            1- (wfuzz -c -z file,common.txt --hc 404 https://52.2.30.210/FUZZ)
+            
+            52.2.30.210
+
+            000000025:   403        9 L      28 W       277 Ch      ".htpasswd"       
+            000000023:   403        9 L      28 W       277 Ch      ".hta"            
+            000000024:   403        9 L      28 W       277 Ch      ".htaccess"       
+            000000013:   301        9 L      28 W       315 Ch      ".git/logs/"      
+            000000930:   301        9 L      28 W       312 Ch      "build"           
+            000001038:   301        9 L      28 W       313 Ch      "cgi-bin/"        
+            000001758:   200        0 L      0 W        0 Ch        "favicon.ico"     
+            000002085:   302        11 L     22 W       346 Ch      "home"            
+            000002193:   200        136 L    581 W      8073 Ch     "index.php"       
+            000002511:   200        113 L    241 W      5262 Ch     "login"           
+            000002525:   405        154 L    31416 W    881648 Ch   "logout"          
+            000002845:   302        11 L     22 W       346 Ch      "notes"           
+            000003474:   200        114 L    251 W      5319 Ch     "register"        
+            000003569:   200        2 L      3 W        24 Ch       "robots.txt"      
+            000003710:   403        9 L      28 W       277 Ch      "server-status"
+
+            http://52.2.30.210/.git/logs/HEAD < Possível vulnerabilidade
