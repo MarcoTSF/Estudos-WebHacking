@@ -1,0 +1,27 @@
+Aula 2
+
+Com a pasta .git exposta, teve acesso aos hashes dos últimos commits. Ele olhou os 2 primeiros dígitos da hash para
+encontrar o objeto, que fica localizado dentro da pasta .git/Objetos. Onde encontra também os commits e as alterações no
+código. Usando o comando (zlib-flate -uncompress < hash > nome do arquivo) você o conteúdo do commit.
+
+Fez DUMP do .git
+http://52.2.30.210/
+
+Utilizando o script https://github.com/carlosevieira/git-dumper
+
+
+Nunca commitar o arquivo .env no git!!!!
+<image 1>
+
+
+IDOR = Insecure Direct Object Reference 
+Vulnerabilidade IDOR nas funcoes show e edit da NotesController.
+<image 2>
+
+
+SSRF  (Server Side Request Forgery) que pode levar ao comprometimento do servidor e da rede do cliente.
+<image 3>
+
+
+Mass Assignment - eh possivel editar qualquer campo no perfil do usuario.
+<image 4>
